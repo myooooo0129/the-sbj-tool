@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SBJツール</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h2>SBJ 実践ツール</h2>
+
+<!-- 基本 -->
+
+<div class="card basic">
+
+<h3>
+基本
+<button class="showButton" onclick="openModal('basicSetting')">設定差</button>
+</h3>
+
+<label>総ゲーム数</label><br>
+<input id="game" type="number"><br><br>
+
+<label>スイカ数</label><br>
+<input id="suika" value="0">
+<button onclick="add('suika')">+1</button><br><br>
+
+<label>通常時スイカ回数</label><br>
+<input id="suikaNormal" value="0">
+<button onclick="add('suikaNormal')">+1</button><br><br>
+
+<label>スイカ直撃数</label><br>
+<input id="suikaDirect" value="0">
+<button onclick="add('suikaDirect')">+1</button>
+
+<p>スイカ確率 : <span id="suikaProb">---</span></p>
+<p>スイカ直撃確率 : <span id="suikaDirectProb">---</span></p>
+
+</div>
+
+
+<!-- 高確移行 -->
+
+<div class="card koukaku">
+
+<h3>
+通常時チャンス目高確移行
+<button class="showButton" onclick="openModal('moveSetting')">設定差</button>
+</h3>
+
+<label>無反応</label><br>
+<input id="noReact" value="0">
+<button onclick="add('noReact')">+1</button><br><br>
+
+<label>高確</label><br>
+<input id="high" value="0">
+<button onclick="add('high')">+1</button><br><br>
+
+<label>直撃</label><br>
+<input id="direct" value="0">
+<button onclick="add('direct')">+1</button>
+
+<p id="moveProb">---</p>
+
+</div>
+
+
+<!-- 高確滞在 -->
+
+<div class="card taizai">
+
+<h3>
+高確滞在
+<button class="showButton" onclick="openModal('staySetting')">設定差</button>
+</h3>
+
+<label>突入G</label><br>
+<input id="startG"><br><br>
+
+<label>終了G</label><br>
+<input id="endG"><br><br>
+
+<button onclick="calcStay()">計算</button>
+<button onclick="undoStay()">一工程戻る</button>
+
+<p>総滞在G : <span id="totalStay">0</span></p>
+
+</div>
+
+
+<!-- 当選契機 -->
+
+<div class="card trigger">
+
+<h3>
+当選契機
+<button class="showButton" onclick="openModal('triggerSetting')">設定差</button>
+</h3>
+
+<label>チャンス目</label><br>
+<input id="chance" value="0">
+<button onclick="add('chance')">+1</button>
+<p id="chanceProb"></p>
+
+<label>チェリー</label><br>
+<input id="cherry" value="0">
+<button onclick="add('cherry')">+1</button>
+<p id="cherryProb"></p>
+
+<label>スイカ</label><br>
+<input id="suikaTrig" value="0">
+<button onclick="add('suikaTrig')">+1</button>
+<p id="suikaProb2"></p>
+
+<label>子役連</label><br>
+<input id="chain" value="0">
+<button onclick="add('chain')">+1</button>
+<p id="chainProb"></p>
+
+<label>チャンスベル</label><br>
+<input id="bell" value="0">
+<button onclick="add('bell')">+1</button>
+<p id="bellProb"></p>
+
+<label>ハズレ</label><br>
+<input id="miss" value="0">
+<button onclick="add('miss')">+1</button>
+<p id="missProb"></p>
+
+</div>
+
+
+<!-- ゾーン -->
+
+<div class="card zone">
+
+<h2>ゾーン</h2>
+
+<!-- 100ゾーン -->
+
+<h3>
+100ゾーン
+<button class="showButton" onclick="openModal('zone100Setting')">設定差</button>
+</h3>
+
+<label>China移行</label><br>
+<input id="z100china" value="0">
+<button onclick="add('z100china')">+1</button><br><br>
+
+<label>高確移行</label><br>
+<input id="z100high" value="0">
+<button onclick="add('z100high')">+1</button>
+
+<p id="z100prob"></p>
+
+<hr>
+
+
+<!-- 200-400ゾーン -->
+
+<h3>
+200-400ゾーン
+<button class="showButton" onclick="openModal('zone200Setting')">設定差</button>
+</h3>
+
+<label>無反応</label><br>
+<input id="z200none" value="0">
+<button onclick="add('z200none')">+1</button><br><br>
+
+<label>China移行</label><br>
+<input id="z200china" value="0">
+<button onclick="add('z200china')">+1</button><br><br>
+
+<label>高確移行</label><br>
+<input id="z200high" value="0">
+<button onclick="add('z200high')">+1</button>
+
+<p id="z200prob"></p>
+
+<hr>
+
+
+<!-- 300-500ゾーン -->
+
+<h3>
+300-500ゾーン
+<button class="showButton" onclick="openModal('zone300Setting')">設定差</button>
+</h3>
+
+<label>無反応</label><br>
+<input id="z300none" value="0">
+<button onclick="add('z300none')">+1</button><br><br>
+
+<label>China移行</label><br>
+<input id="z300china" value="0">
+<button onclick="add('z300china')">+1</button><br><br>
+
+<label>高確移行</label><br>
+<input id="z300high" value="0">
+<button onclick="add('z300high')">+1</button>
+
+<p id="z300prob"></p>
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+
+<!-- モーダル -->
+
+<div id="basicSetting" class="modal" onclick="outsideClose(event,'basicSetting')">
+<div class="modalContent">
+
+<h3>スイカ確率</h3>
+
+設定1 1/99.90<br>
+設定2 1/91.15<br>
+設定3 1/87.73<br>
+設定4 1/86.69<br>
+設定5 1/85.00<br>
+<span class="set6">設定6 1/83.91</span>
+
+<br><br>
+
+<h3>スイカ直撃</h3>
+
+設定1 1/250<br>
+設定2 1/250<br>
+設定3 1/200<br>
+設定4 1/142.9<br>
+設定5 1/71.43<br>
+<span class="set6">設定6 1/62.5</span>
+
+<br><br>
+
+<button onclick="closeModal('basicSetting')">閉じる</button>
+
+</div>
+</div>
+
+
+<div id="moveSetting" class="modal" onclick="outsideClose(event,'moveSetting')">
+<div class="modalContent">
+
+<h3>高確移行</h3>
+
+設定1 無反応54.9% 高確40.1% 直撃5.0%<br>
+設定2 無反応54.2% 高確40.7% 直撃5.1%<br>
+設定3 無反応53.3% 高確41.5% 直撃5.2%<br>
+設定4 無反応41.0% 高確52.1% 直撃6.9%<br>
+設定5 無反応35.8% 高確56.6% 直撃7.6%<br>
+<span class="set6">設定6 無反応32.7% 高確59.5% 直撃7.8%</span>
+
+<br><br>
+
+<button onclick="closeModal('moveSetting')">閉じる</button>
+
+</div>
+</div>
+
+
+<div id="triggerSetting" class="modal" onclick="outsideClose(event,'triggerSetting')">
+<div class="modalContent">
+
+<h3>ハズレ当選率</h3>
+
+設定1〜3 1/103.451<br>
+設定4〜5 1/79.577<br>
+<span class="set6">設定6 1/64.785</span>
+
+<br><br>
+
+<button onclick="closeModal('triggerSetting')">閉じる</button>
+
+</div>
+</div>
+
+<!-- 100ゾーン設定差 -->
+
+
+<div id="zone100Setting" class="modal" onclick="outsideClose(event,'zone100Setting')">
+<div class="modalContent">
+
+<h3>100ゾーン 設定差 (%)</h3>
+
+<table>
+
+<tr>
+<th></th>
+<th>China</th>
+<th>高確</th>
+</tr>
+
+<tr>
+<td>設定1</td>
+<td>84.8%</td>
+<td>15.2%</td>
+</tr>
+
+<tr>
+<td>設定2</td>
+<td>84.0%</td>
+<td>16.0%</td>
+</tr>
+
+<tr>
+<td>設定3</td>
+<td>83.2%</td>
+<td>16.8%</td>
+</tr>
+
+<tr>
+<td>設定4</td>
+<td>80.5%</td>
+<td>19.5%</td>
+</tr>
+
+<tr>
+<td>設定5</td>
+<td>77.0%</td>
+<td>23.0%</td>
+</tr>
+
+<tr class="set6">
+<td>設定6</td>
+<td>76.2%</td>
+<td>23.8%</td>
+</tr>
+
+</table>
+
+<br>
+<button onclick="closeModal('zone100Setting')">閉じる</button>
+
+</div>
+</div>
+
+<div id="zone200Setting" class="modal" onclick="outsideClose(event,'zone200Setting')">
+<div class="modalContent">
+
+<h3>200-400ゾーン 設定差 (%)</h3>
+
+<table>
+
+<tr>
+<th></th>
+<th>無反応</th>
+<th>China</th>
+<th>高確</th>
+</tr>
+
+<tr>
+<td>設定1</td>
+<td>50.0%</td>
+<td>39.8%</td>
+<td>10.2%</td>
+</tr>
+
+<tr>
+<td>設定2</td>
+<td>48.1%</td>
+<td>40.6%</td>
+<td>11.3%</td>
+</tr>
+
+<tr>
+<td>設定3</td>
+<td>46.1%</td>
+<td>41.4%</td>
+<td>12.5%</td>
+</tr>
+
+<tr>
+<td>設定4</td>
+<td>39.4%</td>
+<td>42.2%</td>
+<td>18.4%</td>
+</tr>
+
+<tr>
+<td>設定5</td>
+<td>37.1%</td>
+<td>43.0%</td>
+<td>19.9%</td>
+</tr>
+
+<tr class="set6">
+<td>設定6</td>
+<td>35.5%</td>
+<td>43.8%</td>
+<td>20.7%</td>
+</tr>
+
+</table>
+
+<br>
+<button onclick="closeModal('zone200Setting')">閉じる</button>
+
+</div>
+</div>
+
+<div id="zone300Setting" class="modal" onclick="outsideClose(event,'zone300Setting')">
+<div class="modalContent">
+
+<h3>300-500ゾーン 設定差 (%)</h3>
+
+<table>
+
+<tr>
+<th></th>
+<th>無反応</th>
+<th>China</th>
+<th>高確</th>
+</tr>
+
+<tr>
+<td>設定1</td>
+<td>83.6%</td>
+<td>12.5%</td>
+<td>3.9%</td>
+</tr>
+
+<tr>
+<td>設定2</td>
+<td>82.0%</td>
+<td>13.3%</td>
+<td>4.7%</td>
+</tr>
+
+<tr>
+<td>設定3</td>
+<td>80.4%</td>
+<td>14.1%</td>
+<td>5.5%</td>
+</tr>
+
+<tr>
+<td>設定4</td>
+<td>78.2%</td>
+<td>14.8%</td>
+<td>7.0%</td>
+</tr>
+
+<tr>
+<td>設定5</td>
+<td>76.2%</td>
+<td>15.6%</td>
+<td>8.2%</td>
+</tr>
+
+<tr class="set6">
+<td>設定6</td>
+<td>74.6%</td>
+<td>16.4%</td>
+<td>9.0%</td>
+</tr>
+
+</table>
+
+<br>
+<button onclick="closeModal('zone300Setting')">閉じる</button>
+
+</div>
+</div>
+
+<div class="card memo">
+
+<h3>メモ</h3>
+
+<textarea id="memoText" rows="4" placeholder="例：高確移行かなり良い、直撃2回など"></textarea>
+
+</div>
+
+<button onclick="resetAll()">全リセット</button>
+
+</body>
+</html>
