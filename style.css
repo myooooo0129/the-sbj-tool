@@ -112,6 +112,8 @@ border:none;
 
 border-radius:6px;
 
+touch-action: manipulation;
+
 }
 
 .showButton{
@@ -180,4 +182,5 @@ transform:scale(1.4);
 transition:transform 0.15s;
 
 }
+
 
